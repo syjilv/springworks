@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="dao" class="di.setter.basic.MemberDAO"/>
+	<!-- setter Injection을 이용해서 컨테이너로부터 주입받기 -->
+	<bean id="insa" class="di.setter.basic.InsaImpl">
+		<!--  property 엘리먼트의 name : setter메소드의 set을 빼고 첫 글자를 소문자로 바꾼 이름 -->
+		<property name="dao1" ref="dao"/>
+	</bean>
+	
+	<bean id="logic" class="di.setter01.MyBeanLogic"/>
+	<bean id="mybean2" class="di.setter01.MyBeanImpl">
+		<property name="name" value="유병수"/>
+		<property name="msg" value="하이"/>
+		<property name="logic" ref="logic"/>
+	</bean>
+	
+	<bean id="mybean3" class="di.setter01.MyBeanImpl">
+		<constructor-arg value="유병수"/>
+		<constructor-arg value="안녕"/>
+		<property name="logic" ref="logic"/>
+	</bean>
+	
+	<bean id="d" class="di.setter02.Dice"/>
+	<bean id="p" class="di.setter02.Player">
+		<property name="d" ref="d"/>
+	</bean>
+
+	<bean id="outputter" class="di.setter03.FileOutputter">
+		<property name="filePath" value="파일패스밸류"/>
+	</bean>
+	<bean id="message" class="di.setter03.MessageBean">
+		<constructor-arg value="유병수"/>
+		<property name="greeting" value="하이"/>
+		<property name="outputter" ref="outputter"/>
+	</bean>
+
+	<bean id="article" class="di.constructor04.ArticleDTO"/>
+		
+	<bean id="articleDAO" class="di.constructor04.OracleArticleDAO">
+	</bean>
+	<bean id="write" class="di.constructor04.WriteArticleMgr">
+		<property name="articleDAO" ref="articleDAO"/>
+	</bean>
+</beans>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="dao" class="di.constructor.basic.MemberDAO"/>
+	<bean id="insa" class="di.constructor.basic.InsaImpl">
+		<constructor-arg ref="dao"/>
+	</bean>
+	
+	<!--  MyBeanLogic테스트 -->
+	<bean id="mybean" class="di.constructor01.MyBeanImpl">
+		<constructor-arg>
+			<value>장동건</value>
+		</constructor-arg>
+		<constructor-arg value="안녕하세요" />
+	</bean>
+	<!--  MyBeanImpl의 매개변수가 세 개 있는 생성자를 호출할 수 있도록 정의(mybean2)
+			MyBeanTest에서 mybean2를 실행할 수 있도록 수정하고 테스트 -->
+	<bean id="logic" class="di.constructor01.MyBeanLogic"/>
+	<bean id="mybean2" class="di.constructor01.MyBeanImpl">
+		<constructor-arg value="이름"/>
+		<constructor-arg value="메시지이이이이"/>
+		<constructor-arg ref="logic" />
+	</bean>
+	<bean id="d" class="di.constructor02.Dice"/>
+	<bean id="p" class="di.constructor02.Player">
+		<constructor-arg ref="d"/>
+	</bean>
+	
+	<bean id="outputter" class="di.constructor03.ConsoleOutputter">
+	</bean>
+	<bean id="message" class="di.constructor03.MessageBean">
+		<constructor-arg value="유병수"/>
+		<constructor-arg value="알겠다"/>
+		<constructor-arg ref="outputter"/>
+	</bean>
+	
+	<bean id="article" class="di.constructor04.ArticleDTO"/>
+	<bean id="articleDAO" class="di.constructor04.OracleArticleDAO"/>
+	<bean id="write" class="di.constructor04.WriteArticleMgr">
+		<constructor-arg ref="articleDAO"/>
+	</bean>
+
+</beans>
