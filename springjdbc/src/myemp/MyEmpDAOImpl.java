@@ -26,8 +26,8 @@ public class MyEmpDAOImpl implements MyEmpDAO {
 
 	@Override
 	public void update(MyEmpDTO userInfo) {
-		String sql = "update myemp set id = ?, pass = ?, addr = ?, grade = ? where id = ?";
-		int result = template.update(sql, userInfo.getId(), userInfo.getPass(), userInfo.getAddr(), userInfo.getGrade(), userInfo.getId());
+		String sql = "update myemp set pass = ?, addr = ?, grade = ? where id = ?";
+		int result = template.update(sql, userInfo.getPass(), userInfo.getAddr(), userInfo.getGrade(), userInfo.getId());
 		System.out.println(result + " Record 수정 성공");
 	}
 
