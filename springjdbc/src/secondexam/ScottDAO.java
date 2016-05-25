@@ -11,7 +11,7 @@ public class ScottDAO {
 	}
 	
 	public int count(int deptno) {
-		return template.queryForObject("select count(*) from emp where deptno=" + deptno, Integer.class);
+		return template.queryForObject("select count(*) from myemp where deptno=" + deptno, Integer.class);
 		
 	}
 }
