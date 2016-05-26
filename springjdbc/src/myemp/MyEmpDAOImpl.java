@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
@@ -43,7 +44,13 @@ public class MyEmpDAOImpl implements MyEmpDAO {
 
 	@Override
 	public MyEmpDTO login(String id, String pass) {
-		return template.queryForObject("select * from myemp where id = ? and pass = ?", new Object[]{id, pass}, new MyEmpRowMapper());
+		MyEmpDTO loginUser = null;
+		try {
+		loginUser = template.queryForObject("select * from myemp where id = ? and pass = ?", new Object[]{id, pass}, new MyEmpRowMapper()); 
+		} catch(EmptyResultDataAccessException e) {
+			
+		}
+		return loginUser;
 	}
 
 	@Override
