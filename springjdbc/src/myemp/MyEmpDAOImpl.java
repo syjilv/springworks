@@ -1,8 +1,11 @@
 package myemp;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class MyEmpDAOImpl implements MyEmpDAO {
 	private JdbcTemplate template;
@@ -40,20 +43,17 @@ public class MyEmpDAOImpl implements MyEmpDAO {
 
 	@Override
 	public MyEmpDTO login(String id, String pass) {
-		// TODO Auto-generated method stub
-		return null;
+		return template.queryForObject("select * from myemp where id = ? and pass = ?", new Object[]{id, pass}, new MyEmpRowMapper());
 	}
 
 	@Override
 	public List<MyEmpDTO> getMemberList() {
-		// TODO Auto-generated method stub
-		return null;
+		return template.query("select * from myemp", new MyEmpRowMapper());
 	}
 
 	@Override
 	public List<MyEmpDTO> findByAddr(String addr) {
-		// TODO Auto-generated method stub
-		return null;
+		return template.query("select * from myemp where addr like ?", new Object[]{"%" + addr + "%"}, new MyEmpRowMapper());
 	}
 
 }
