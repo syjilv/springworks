@@ -2,6 +2,8 @@ package mydept;
 
 import java.util.List;
 
+import myemp.MyEmpDTO;
+
 public interface MyDeptDAO {
 	//부서 수 조회
 	int count();
@@ -13,6 +15,8 @@ public interface MyDeptDAO {
 	void delete(String deptno);
 	//부서목록보기
 	List<MyDeptDTO> getDeptList();
-	//부서명으로 검색
-	List<MyDeptDTO> findByDeptname(String deptname);
+	//부서번호로 검색
+	List<MyDeptDTO> findByDeptno(String deptno);
+	//부서명으로 사원 검색
+	List<MyEmpDTO> findEmpByDeptname(String deptname);
 }

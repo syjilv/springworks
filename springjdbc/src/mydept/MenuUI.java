@@ -3,6 +3,8 @@ package mydept;
 import java.util.List;
 import java.util.Scanner;
 
+import myemp.MyEmpDTO;
+
 public class MenuUI implements AbstractUI {
 	Scanner key = new Scanner(System.in);
 	MyDeptDAO dao;
@@ -19,9 +21,10 @@ public class MenuUI implements AbstractUI {
 		System.out.println("2. 부서정보수정");
 		System.out.println("3. 부서삭제");
 		System.out.println("4. 부서목록보기");
-		System.out.println("5. 부서명검색");
+		System.out.println("5. 부서번호검색");
 		System.out.println("6. 부서수조회");
-		System.out.println("7. 종료");
+		System.out.println("7. 부서별 사원조회");
+		System.out.println("8. 종료");
 		System.out.print("원하는 작업을 선택하세요:");
 		int menu=key.nextInt();
 		menuSelect(menu);
@@ -42,12 +45,15 @@ public class MenuUI implements AbstractUI {
 				showAllMenu();
 				break;
 			case 5:
-				findByDeptnameMenu();
+				findByDeptnoMenu();
 				break;
 			case 6:
 				countMenu();
 				break;
 			case 7:
+				findEmpByDeptnameMenu();
+				break;
+			case 8:
 				System.exit(0);
 		}
 	}
@@ -61,11 +67,11 @@ public class MenuUI implements AbstractUI {
 	}
 
 	@Override
-	public void findByDeptnameMenu() {
+	public void findByDeptnoMenu() {
 		System.out.println("********검색********");
-		System.out.print("검색할 부서명을 입력하세요:");
-		String deptname = key.next();
-		List<MyDeptDTO> deptlist = dao.findByDeptname(deptname);
+		System.out.print("검색할 부서번호를 입력하세요:");
+		String deptno = key.next();
+		List<MyDeptDTO> deptlist = dao.findByDeptno(deptno);
 		for (int i = 0; i < deptlist.size(); i++) {
 			MyDeptDTO dept = deptlist.get(i);
 			System.out.print(dept.getDeptno()+"\t");
@@ -127,6 +133,24 @@ public class MenuUI implements AbstractUI {
 	@Override
 	public void countMenu() {
 		System.out.println("전체 부서 수:"+dao.count());
+	}
+
+	@Override
+	public void findEmpByDeptnameMenu() {
+		System.out.println("********사원조회********");
+		System.out.print("검색할 부서명을 입력하세요:");
+		String deptname = key.next();
+		List<MyEmpDTO> emplist = dao.findEmpByDeptname(deptname);
+		for (int i = 0; i < emplist.size(); i++) {
+			MyEmpDTO emp = emplist.get(i);
+			System.out.print(emp.getId()+"\t");
+			System.out.print(emp.getPass()+"\t");
+			System.out.print(emp.getName()+"\t");
+			System.out.print(emp.getAddr()+"\t");
+			System.out.print(emp.getGrade()+"\t");
+			System.out.print(emp.getSal()+"\t");
+			System.out.println(emp.getDeptno());
+		}
 		
 	}
 
