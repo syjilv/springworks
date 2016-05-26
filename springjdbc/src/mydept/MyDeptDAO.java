@@ -16,7 +16,7 @@ public interface MyDeptDAO {
 	//부서목록보기
 	List<MyDeptDTO> getDeptList();
 	//부서번호로 검색
-	List<MyDeptDTO> findByDeptno(String deptno);
+	MyDeptDTO findByDeptno(String deptno);
 	//부서명으로 사원 검색
 	List<MyEmpDTO> findEmpByDeptname(String deptname);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import myemp.MyEmpDTO;
 import myemp.MyEmpRowMapper;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MyDeptDAOImpl implements MyDeptDAO {
@@ -48,11 +49,16 @@ public class MyDeptDAOImpl implements MyDeptDAO {
 	}
 
 	@Override
-	public List<MyDeptDTO> findByDeptno(String deptno) {
+	public MyDeptDTO findByDeptno(String deptno) {
 		String sql = "select * from mydept where deptno = ?";
 		Object[] ps = {deptno}; 
-		
-		return template.query(sql, ps, new MyDeptRowMapper());
+		MyDeptDTO dept = null;
+		try {
+			dept = template.queryForObject(sql, ps, new MyDeptRowMapper());
+		} catch(EmptyResultDataAccessException e) {
+			
+		}
+		return dept;
 	}
 
 	@Override

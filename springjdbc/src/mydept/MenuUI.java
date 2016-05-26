@@ -63,7 +63,6 @@ public class MenuUI implements AbstractUI {
 		System.out.println("삭제할 부서번호를 입력하세요:");
 		String deptno = key.next();
 		dao.delete(deptno);
-
 	}
 
 	@Override
@@ -71,14 +70,11 @@ public class MenuUI implements AbstractUI {
 		System.out.println("********검색********");
 		System.out.print("검색할 부서번호를 입력하세요:");
 		String deptno = key.next();
-		List<MyDeptDTO> deptlist = dao.findByDeptno(deptno);
-		for (int i = 0; i < deptlist.size(); i++) {
-			MyDeptDTO dept = deptlist.get(i);
-			System.out.print(dept.getDeptno()+"\t");
-			System.out.print(dept.getDeptname()+"\t");
-			System.out.print(dept.getLoc()+"\t");
-			System.out.println(dept.getTelnum());
-		}
+		MyDeptDTO dept = dao.findByDeptno(deptno);
+		System.out.print(dept.getDeptno()+"\t");
+		System.out.print(dept.getDeptname()+"\t");
+		System.out.print(dept.getLoc()+"\t");
+		System.out.println(dept.getTelnum());
 	}
 
 	@Override
