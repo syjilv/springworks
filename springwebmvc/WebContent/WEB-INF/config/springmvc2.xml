@@ -18,9 +18,9 @@
 		<property name="dao" ref="dao"/>
 	</bean>
 	<!-- 화면을 보여주는 컨트롤러 -->
-	<bean name="/index.do" class="main.IndexController"/>
-	<bean name="/insert_form.do" class="main.InsertFormController"/>
-	<bean name="/list.do" class="main.ListController">
+	<bean name="/index.do" class="emp.controller.IndexController"/>
+	<bean name="/insert_form.do" class="emp.controller.InsertFormController"/>
+	<bean name="/list.do" class="emp.controller.ListController">
 		<constructor-arg ref="service"/>
 	</bean>
 </beans>
