@@ -11,22 +11,25 @@ import org.springframework.web.servlet.mvc.Controller;
 import emp.dto.MyEmpDTO;
 import emp.service.MyEmpService;
 
-public class ListController implements Controller {
+public class SearchController implements Controller {
 	MyEmpService service;
+	String addr;
 	
-	public ListController(MyEmpService service) {
+	public SearchController(MyEmpService service) {
 		super();
 		this.service = service;
 	}
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest req,
-			HttpServletResponse ares) throws Exception {
+			HttpServletResponse res) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		List<MyEmpDTO> userlist = service.getMemberList();
+		req.setCharacterEncoding("EUC-KR");
+		addr = (String) req.getParameter("search"); 
+		List<MyEmpDTO> userlist = service.findByAddr(addr);
+		
 		mav.addObject("userlist", userlist);
-		mav.setViewName("emp/list");
+		mav.setViewName("emp/searchlist");
 		return mav;
 	}
-
 }

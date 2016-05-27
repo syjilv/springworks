@@ -7,16 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% List<MyEmpDTO> userlist  =
+
+	<% List<MyEmpDTO> userlist  =
 			(List<MyEmpDTO>)request.getAttribute("userlist"); 
 	   int size = userlist.size();	%>
-	<h1>회원목록(MVC)</h1>
+	<jsp:include page="search.jsp"/>
 	
 	<hr/>
 	<table align="center" border="1" width="600">
 		<tr bgcolor="skyblue">
 			<th>아이디</th><th>패스워드</th><th>성명</th>
-			<th>주소</th><th>부서번호</th>
+			<th>주소</th><th>포인트</th>
 			<th>삭제</th>
 		</tr>
 		<%for(int i = 0;i<size;i++){

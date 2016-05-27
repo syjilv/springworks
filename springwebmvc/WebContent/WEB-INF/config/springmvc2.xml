@@ -11,15 +11,18 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<!-- 화면을 보여주는 컨트롤러 -->
+	<bean name="/index.do" class="emp.controller.IndexController"/>
+	<bean name="/insert_form.do" class="emp.controller.InsertFormController"/>
+
+	<!--  비즈니스 로직을 위한 빈 -->
 	<bean id="dao" class="emp.dao.MyEmpDAOImpl">
 		<constructor-arg ref="template"/>
 	</bean>
 	<bean id="service" class="emp.service.MyEmpServiceImpl">
 		<property name="dao" ref="dao"/>
 	</bean>
-	<!-- 화면을 보여주는 컨트롤러 -->
-	<bean name="/index.do" class="emp.controller.IndexController"/>
-	<bean name="/insert_form.do" class="emp.controller.InsertFormController"/>
+	<!-- 기능을 수행하는 컨트롤러 -->
 	<bean name="/list.do" class="emp.controller.ListController">
 		<constructor-arg ref="service"/>
 	</bean>
