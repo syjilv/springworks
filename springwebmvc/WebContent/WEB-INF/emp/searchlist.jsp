@@ -8,8 +8,8 @@
 </head>
 <body>
 
-	<% ArrayList<MyEmpDTO> userlist  =
-			(ArrayList<MyEmpDTO>)request.getAttribute("userlist"); 
+	<% List<MyEmpDTO> userlist  =
+			(List<MyEmpDTO>)request.getAttribute("userlist"); 
 	   int size = userlist.size();	%>
 	<jsp:include page="search.jsp"/>
 	
@@ -29,7 +29,7 @@
 				<td><%= user.getAddr()%></td>
 				<td><%= user.getDeptno() %></td>
 				<td>
-		<a href="/webtest/delete.do?id=<%=user.getId() %>">삭제</a></td>
+		<a href="/delete.do?id=<%=user.getId() %>">삭제</a></td>
 			</tr>
 		<%} %>
 	</table>

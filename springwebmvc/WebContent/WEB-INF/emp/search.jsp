@@ -9,7 +9,7 @@
 
 <body>
 	<div align="center">
-		<form method="get" action="search.do">
+		<form method="post" action="search.do">
 			<h1>주소로 회원검색하기</h1>
 			<h3>
 				주소명:<input type="text" name="search" /> <input type="submit"

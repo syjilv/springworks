@@ -14,7 +14,7 @@
 	<!-- 화면을 보여주는 컨트롤러 -->
 	<bean name="/index.do" class="emp.controller.IndexController"/>
 	<bean name="/insert_form.do" class="emp.controller.InsertFormController"/>
-
+	<bean name="/search_form.do" class="emp.controller.SearchFormController"/>
 	<!--  비즈니스 로직을 위한 빈 -->
 	<bean id="dao" class="emp.dao.MyEmpDAOImpl">
 		<constructor-arg ref="template"/>
@@ -26,4 +26,8 @@
 	<bean name="/list.do" class="emp.controller.ListController">
 		<constructor-arg ref="service"/>
 	</bean>
+	<bean name="/search.do" class="emp.controller.SearchController">
+		<constructor-arg ref="service"/>
+	</bean>
+	
 </beans>

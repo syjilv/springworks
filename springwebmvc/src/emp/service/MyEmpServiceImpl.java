@@ -44,13 +44,12 @@ public class MyEmpServiceImpl implements MyEmpService {
 
 	@Override
 	public List<MyEmpDTO> getMemberList() {
-		return  dao.getMemberList();
+		return dao.getMemberList();
 	}
 
 	@Override
 	public List<MyEmpDTO> findByAddr(String addr) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByAddr(addr);
 	}
 
 }

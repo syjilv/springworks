@@ -8,11 +8,11 @@
 </head>
 <body>
 	<div>
-		<h1>메인페이지</h1>
+		<h1>메인페이지(어노테이션)</h1>
 
 		<hr/>
 		<h3><a href="test.do">스프링 웹 MVC연동하기</a></h3>
-		<h3><a href="insert_form.do">회원가입</a></h3>
+		<h3><a href="insert.do">회원가입</a></h3>
 		<h3><a href="list.do">회원목록</a></h3>
 		<h3><a href="search_form.do">회원검색</a></h3>
 	</div>
