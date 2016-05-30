@@ -5,28 +5,26 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import emp.dto.MyEmpDTO;
 import emp.service.MyEmpService;
 
-public class SearchController implements Controller {
+@Controller
+public class SearchController {
+	@Autowired
 	MyEmpService service;
-	String addr;
 	
-	public SearchController(MyEmpService service) {
-		super();
-		this.service = service;
-	}
-
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	@RequestMapping(value="/search.do", method=RequestMethod.POST)
+	public ModelAndView runSearch(HttpServletRequest req,
+			HttpServletResponse res, String search)  {
 		ModelAndView mav = new ModelAndView();
-		req.setCharacterEncoding("EUC-KR");
-		addr = (String) req.getParameter("search"); 
-		List<MyEmpDTO> userlist = service.findByAddr(addr);
+		List<MyEmpDTO> userlist = service.findByAddr(search);
+		System.out.println(search);
 		
 		mav.addObject("userlist", userlist);
 		mav.setViewName("emp/searchlist");
