@@ -1,20 +1,22 @@
+<%@page import="emp.dto.MyEmpDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=euc-kr">
-<title>회원정보수정</title>
-
+<title>정보수정</title>
 
 </head>
 
 <body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
-<form name="form1" method="post" 
-					action="member_update.do">
+
+	<% String id  = (String) request.getAttribute("id");%>
+
+<form name="form1" method="post" action="update.do">
 <table align="center" cellpadding="0" cellspacing="0" width="479">
     <tr>
         <td width="469" colspan="2" height="42">
-            <p align="center"><code><b><span style="font-size:20pt;">회원가입</span></b></code></p>
+            <p align="center"><code><b><span style="font-size:20pt;">정보수정</span></b></code></p>
         </td>
     </tr>
     <tr>
@@ -27,7 +29,7 @@
             <p><code><b>아이디</b></code></p>
         </td>
         <td width="359">
-            <p><code></code></p>
+            <p><code><%= id %></code></p>
         </td>
     </tr>
    <tr>

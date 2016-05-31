@@ -73,7 +73,7 @@
     </tr>
     <tr>
         <td width="479" colspan="2" height="9" valign="bottom">            
-                <p><code><a href="/webTest/MemberListServlet">리스트(L)</a></code></p>
+                <p><code><a href="list.do">리스트(L)</a></code></p>
         </td>
     </tr>
     <tr>

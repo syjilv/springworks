@@ -15,19 +15,14 @@ import emp.dto.MyEmpDTO;
 import emp.service.MyEmpService;
 
 @Controller
-public class SearchController {
+public class UpdateController {
 	@Autowired
 	MyEmpService service;
 	
-	@RequestMapping(value="/search.do", method=RequestMethod.GET)
-	public ModelAndView runSearch(HttpServletRequest req,
-			HttpServletResponse res, String search)  {
-		ModelAndView mav = new ModelAndView();
-		List<MyEmpDTO> userlist = service.findByAddr(search);
-		System.out.println(search);
-		
-		mav.addObject("userlist", userlist);
-		mav.setViewName("emp/searchlist");
-		return mav;
+	@RequestMapping(value="/update.do", method=RequestMethod.POST)
+	public ModelAndView runSearch(HttpServletRequest req, MyEmpDTO emp, String id)  {
+		System.out.println(emp + " : " + id);
+		//service.update(emp);
+		return new ModelAndView("redirect:list.do");
 	}
 }

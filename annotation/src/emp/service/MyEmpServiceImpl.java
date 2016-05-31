@@ -27,14 +27,12 @@ public class MyEmpServiceImpl implements MyEmpService {
 
 	@Override
 	public void update(MyEmpDTO userInfo) {
-		// TODO Auto-generated method stub
-
+		dao.update(userInfo);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-
+		dao.delete(id);
 	}
 
 	@Override

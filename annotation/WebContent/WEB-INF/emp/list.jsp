@@ -13,6 +13,7 @@
 	<h1>회원목록(MVC)</h1>
 	
 	<hr/>
+	<form action="update_form.do" method="post">
 	<table align="center" border="1" width="600">
 		<tr bgcolor="skyblue">
 			<th>아이디</th><th>패스워드</th><th>성명</th>
@@ -28,11 +29,11 @@
 				<td><%= user.getAddr()%></td>
 				<td><%= user.getDeptno() %></td>
 				<td>
-		<a href="/delete.do?id=<%=user.getId() %>">삭제</a></td>
+		<a href="delete.do?id=<%=user.getId() %>">삭제</a></td>
 			</tr>
 		<%} %>
 	</table>
-	
+	</form>
 </body>
 </html>
 

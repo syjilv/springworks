@@ -9,7 +9,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class InsertFormController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest req,
-			HttpServletResponse ares) throws Exception {
+			HttpServletResponse res) throws Exception {
 		return new ModelAndView("emp/memberInput");
 	}
 
