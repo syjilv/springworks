@@ -24,7 +24,6 @@ public class DeleteController {
 	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
 	public ModelAndView runDelete(HttpServletRequest req, String id) {
 		service.delete(id);
-		String referer = req.getHeader("Referer");
-		return new ModelAndView("redirect:" + referer);
+		return new ModelAndView("redirect:list.do");
 	}
 }

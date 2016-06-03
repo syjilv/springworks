@@ -1,9 +1,6 @@
 package emp.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +17,9 @@ public class UpdateController {
 	MyEmpService service;
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public ModelAndView runSearch(HttpServletRequest req, MyEmpDTO emp, String id)  {
-		System.out.println(emp + " : " + id);
-		//service.update(emp);
+	public ModelAndView runSearch(HttpServletRequest req, MyEmpDTO user)  {
+		System.out.println(user);
+		service.update(user);
 		return new ModelAndView("redirect:list.do");
 	}
 }

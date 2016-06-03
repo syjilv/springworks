@@ -1,9 +1,6 @@
 package emp.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +12,10 @@ import emp.dto.MyEmpDTO;
 @Controller
 public class UpdateFormController {
 
-	@RequestMapping(value = "/update_form.do", method = RequestMethod.GET)
-	public ModelAndView runSearch(HttpServletRequest req, String id) {
+	@RequestMapping(value = "/update_form.do", method = RequestMethod.POST)
+	public ModelAndView runSearch(HttpServletRequest req, MyEmpDTO user) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("id", id);
+		mav.addObject("user", user);
 		mav.setViewName("emp/update");
 		return mav;
 	}

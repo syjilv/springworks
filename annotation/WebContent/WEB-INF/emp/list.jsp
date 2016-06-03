@@ -13,7 +13,6 @@
 	<h1>회원목록(MVC)</h1>
 	
 	<hr/>
-	<form action="update_form.do" method="post">
 	<table align="center" border="1" width="600">
 		<tr bgcolor="skyblue">
 			<th>아이디</th><th>패스워드</th><th>성명</th>
@@ -23,7 +22,7 @@
 		<%for(int i = 0;i<size;i++){
 			MyEmpDTO user = userlist.get(i);%>
 			<tr>
-				<td><%= user.getId() %></td>
+				<td><a href="detail.do?id=<%= user.getId() %>"><%= user.getId() %></a></td>
 				<td><%= user.getPass() %></td>
 				<td><%= user.getName() %></td>
 				<td><%= user.getAddr()%></td>
@@ -33,7 +32,6 @@
 			</tr>
 		<%} %>
 	</table>
-	</form>
 </body>
 </html>
 

@@ -62,4 +62,10 @@ public class MyEmpDAOImpl implements MyEmpDAO {
 		return template.query("select * from myemp where addr like ?", new Object[]{"%" + addr + "%"}, new MyEmpRowMapper());
 	}
 
+	@Override
+	public MyEmpDTO getDetail(String id) {
+		MyEmpDTO user = template.queryForObject("select * from myemp where id = ?", new Object[]{id}, new MyEmpRowMapper());
+		return user;
+	}
+
 }

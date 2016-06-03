@@ -10,7 +10,7 @@
 
 <body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
 
-	<% String id  = (String) request.getAttribute("id");%>
+	<% MyEmpDTO user  = (MyEmpDTO) request.getAttribute("user");%>
 
 <form name="form1" method="post" action="update.do">
 <table align="center" cellpadding="0" cellspacing="0" width="479">
@@ -29,7 +29,7 @@
             <p><code><b>아이디</b></code></p>
         </td>
         <td width="359">
-            <p><code><%= id %></code></p>
+            <p><code><%= user.getId() %></code></p>
         </td>
     </tr>
    <tr>
@@ -38,7 +38,7 @@
         </td>
         <td width="359">
             <p><code><input type="text" name="pass" 
-            value="" size="30"></code></p>
+            value="<%= user.getPass() %>" size="30"></code></p>
         </td>
     </tr>
     <tr>
@@ -46,7 +46,7 @@
             <p><code><b>성명</b></code></p>
         </td>
         <td width="359">
-            <p><code></code></p>
+            <p><code><%= user.getName() %></code></p>
         </td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@
         </td>
         <td width="359">
             <p><code><input type="text" name="addr"
-            value="" size="51"></code></p>
+            value="<%= user.getAddr() %>" size="51"></code></p>
         </td>
     </tr>
  
@@ -81,11 +81,11 @@
     </tr>
     <tr>
         <td width="479" colspan="2" height="9" valign="bottom">            
-                <p><code><a href="">리스트(L)</a></code></p>
+                <p><code><a href="list.do">리스트(L)</a></code></p>
         </td>
     </tr>
     <tr>
-        <td width="479" colspan="2" height="57" valign="bottom">            <p align="right"><code><input type="hidden" name="jumin"><input type="hidden" name="ilsi"></code></p>
+        <td width="479" colspan="2" height="57" valign="bottom">            <p align="right"><code><input type="hidden" name="id" value="<%= user.getId() %>"><input type="hidden" name="ilsi"></code></p>
         </td>
     </tr>
 </table>
