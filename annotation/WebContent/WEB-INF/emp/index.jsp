@@ -15,6 +15,7 @@
 		<h3><a href="insert.do">회원가입</a></h3>
 		<h3><a href="list.do">회원목록</a></h3>
 		<h3><a href="search_form.do">회원검색</a></h3>
+		<h3><a href="board_list.do">게시판</a></h3>
 	</div>
 </body>
 </html>
