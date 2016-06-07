@@ -6,54 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import emp.dao.MyEmpDAO;
-import emp.dto.MyEmpDTO;
+import board.dao.BoardDAO;
+import board.dto.BoardDTO;
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	@Qualifier("empdao")
-	MyEmpDAO dao;
+	@Qualifier("boarddao")
+	BoardDAO dao;
 	
 	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<BoardDTO> list(int pageNo) {
+		return dao.list(pageNo);
 	}
 
 	@Override
-	public void insert(MyEmpDTO user) {
-		dao.insert(user);
-	}
-
-	@Override
-	public void update(MyEmpDTO userInfo) {
-		dao.update(userInfo);
-	}
-
-	@Override
-	public void delete(String id) {
-		dao.delete(id);
-	}
-
-	@Override
-	public MyEmpDTO login(String id, String pass) {
-		// TODO Auto-generated method stub
+	public BoardDTO view(String boardNo) {
 		return null;
 	}
 
 	@Override
-	public List<MyEmpDTO> getMemberList() {
-		return dao.getMemberList();
+	public void write(BoardDTO dto) {
+		dao.write(dto);
 	}
 
 	@Override
-	public List<MyEmpDTO> findByAddr(String addr) {
-		return dao.findByAddr(addr);
+	public void update(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public MyEmpDTO getDetail(String id) {
-		return dao.getDetail(id);
+	public void delete(String boardNo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

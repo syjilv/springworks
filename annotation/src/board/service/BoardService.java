@@ -2,23 +2,27 @@ package board.service;
 
 import java.util.List;
 
+import board.dto.BoardDTO;
 import emp.dto.MyEmpDTO;
 
 public interface BoardService {
-	//회원인원수 조회
-	int count();
-	//회원가입
-	void insert(MyEmpDTO user);
-	//회원정보수정
-	void update(MyEmpDTO userInfo);
-	//회원탈퇴
-	void delete(String id);
-	//로그인
-	MyEmpDTO login(String id,String pass);
-	//회원목록보기
-	List<MyEmpDTO> getMemberList();
-	//주소로 검색
-	List<MyEmpDTO> findByAddr(String addr);
-	//개인정보보기
-	MyEmpDTO getDetail(String id);
+
+	// 목록 조회
+	List<BoardDTO> list(int pageNo);
+
+	// 게시물 조회
+	BoardDTO view(String boardNo);
+
+	// 게시물 작성
+	void write(BoardDTO dto);
+
+	// 게시물 수정
+	void update(BoardDTO dto);
+
+	// 게시물 삭제
+	void delete(String boardNo);
+
+	// 게시물 검색
+	// List<BoardDTO> search(String query);
+
 }

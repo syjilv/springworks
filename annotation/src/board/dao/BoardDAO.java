@@ -8,7 +8,7 @@ import emp.dto.MyEmpDTO;
 public interface BoardDAO {
 
 	// 목록 조회
-	List<BoardDTO> list(int pageNo);
+	List<BoardDTO> list(int page);
 
 	// 게시물 조회
 	BoardDTO view(String boardNo);

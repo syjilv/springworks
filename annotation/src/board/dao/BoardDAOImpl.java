@@ -3,9 +3,12 @@ package board.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import emp.dto.MyEmpDTO;
+import emp.dto.MyEmpRowMapper;
 import board.dto.BoardDTO;
 import board.dto.BoardRowMapper;
 
@@ -13,15 +16,15 @@ import board.dto.BoardRowMapper;
 public class BoardDAOImpl implements BoardDAO {
 	@Autowired
 	private JdbcTemplate template;
-
+	
 	// 목록 조회
 	@Override
-	public List<BoardDTO> list(int pageNo) {
-		String sql = "select * from "
-				   + "(select * from "
-				   + "(select * from TB_BOARD where DEL_FLG = 'N' order by BOARD_NO desc) "
-				   + "where rownum <= " + (pageNo * 10) + ") "
-				   + "where rownum >= " + (pageNo * 10 - 9);
+	public List<BoardDTO> list(int page) {
+		String sql = "select u.BOARD_NO, u.MEM_ID, u.TITLE, u.TEXT, u.COUNT, u.DEL_FLG, u.REG_DTM, u.MOD_DTM from "
+				   + "(select ROWNUM n, t.* from "
+				   + "(select * from TB_BOARD where DEL_FLG = 'N' order by to_number(BOARD_NO) desc) t "
+				   + "where ROWNUM <= " + (page * 10) + ") u "
+				   + "where u.n >= " + (page * 10 - 9);
 		return template.query(sql, new BoardRowMapper());
 	}
 	

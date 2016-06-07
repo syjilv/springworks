@@ -1,5 +1,6 @@
+<%@page import="board.dto.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="java.util.*,emp.dto.*"%>
+	pageEncoding="EUC-KR" session="true" import="java.util.*" %>
 <html>
 <head>
 <meta charset="EUC-KR">
@@ -18,9 +19,8 @@
 
 <body>
 	<%
-		List<MyEmpDTO> userlist = (List<MyEmpDTO>) request
-				.getAttribute("userlist");
-		int size = userlist.size();
+		List<BoardDTO> list = (List<BoardDTO>) request.getAttribute("list");
+		int size = list.size();
 	%>
 
 	<div class="section">
@@ -45,13 +45,14 @@
 						<tbody>
 							<%
 								for (int i = 0; i < size; i++) {
+									BoardDTO board = list.get(i);
 							%>
 							<tr>
-								<td>1</td>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-								<td>@mdo</td>
+								<td><%= board.getBoardNo() %></td>
+								<td><%= board.getTitle() %></td>
+								<td><%= board.getMemId() %></td>
+								<td><%= board.getRegDtm() %></td>
+								<td><%= board.getCount() %></td>
 							</tr>
 							<%
 								}
@@ -64,7 +65,7 @@
 				<div class="col-md-6">
 					<a class="btn btn-default btn-lg"><i
 						class="fa fa-fw -alt fa-th-list"></i> 목록</a> <a
-						class="btn btn-lg btn-primary"><i
+						class="btn btn-lg btn-primary" href="write.do"><i
 						class="-alt -list fa fa-fw fa-pencil"></i> 글쓰기</a>
 				</div>
 				<div class="col-md-6 text-right">
@@ -87,7 +88,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<ul class="pagination">
+						<ul class="pagination pagination-lg">
 							<li><a href="#">Prev</a></li>
 							<li class="active"><a href="#">1</a></li>
 							<li><a href="#">2</a></li>

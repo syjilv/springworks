@@ -1,20 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="java.util.*,emp.dto.*"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" session="true" import="java.util.*,emp.dto.*"%>
 <html>
 
 <head>
 <meta charset="EUC-KR">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript"
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-	rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -27,14 +20,22 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<form class="form-horizontal" role="form">
-						<div class="form-group" id="title">
+					<form class="form-horizontal" role="form" name="writeform" action="write.do" method="POST">
+						<div class="form-group">
+							<div class="col-md-2 text-right">
+								<label for="memId" class="control-label">아이디</label>
+							</div>
+							<div class="col-md-10">
+								<input type="text" class="form-control input-lg" name="memId" id="memId" value="${sessionScope.mem.memId}" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-2 text-right">
 								<label for="title" class="control-label">제목</label>
 							</div>
 							<div class="col-md-10">
-								<input type="text" class="form-control input-lg" id="title"
-									placeholder="제목">
+								<input type="text" class="form-control input-lg" name="title" id="title" placeholder="제목">
 							</div>
 						</div>
 						<div class="form-group">
@@ -42,16 +43,16 @@
 								<label for="text" class="control-label">내용</label>
 							</div>
 							<div class="col-md-10">
-								<textarea class="form-control" rows="20" id="text"></textarea>
+								<textarea class="form-control" rows="20" name="text" id="text"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-12 text-center">
+							<div class="col-md-12 text-center">
 								<button type="submit" class="btn btn-lg btn-primary">
-									<i class="fa fa-fw fa-check"></i>글쓰기
+									<i class="fa fa-fw fa-check"></i> 글쓰기
 								</button>
 								<button type="submit" class="btn btn-danger btn-lg">
-									<i class="fa fa-fw fa-close"></i>취소
+									<i class="fa fa-fw fa-close"></i> 취소
 								</button>
 							</div>
 						</div>

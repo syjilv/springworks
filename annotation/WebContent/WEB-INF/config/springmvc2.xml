@@ -12,7 +12,7 @@
 	<context:component-scan base-package="test"/>
 	<context:component-scan base-package="emp"/>
 	<context:component-scan base-package="board"/>
-	
+	<context:component-scan base-package="member"/>
 	
 	<!-- spring webmvc에서 지원하는 API들 사용 -->
 	<!-- 1. ViewResolver를 등록 -->
