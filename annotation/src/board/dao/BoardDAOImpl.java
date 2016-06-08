@@ -16,6 +16,12 @@ import board.dto.BoardRowMapper;
 public class BoardDAOImpl implements BoardDAO {
 	@Autowired
 	private JdbcTemplate template;
+
+	// 게시물 수 조회
+	@Override
+	public int count() {
+		return template.queryForObject("select count(*) from TB_BOARD", Integer.class);
+	}
 	
 	// 목록 조회
 	@Override
@@ -31,23 +37,29 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시물 조회
 	@Override
 	public BoardDTO view(String boardNo) {
-		BoardDTO dto = template.queryForObject("select * from TB_BOARD where BOARD_NO = ?", new Object[]{boardNo}, new BoardRowMapper());
-		return dto;
+		BoardDTO board = template.queryForObject("select * from TB_BOARD where BOARD_NO = ?", new Object[]{boardNo}, new BoardRowMapper());
+		
+		return board;
 	}
 	
 	// 게시물 작성
 	@Override
-	public void write(BoardDTO dto) {
+	public void write(BoardDTO board) {
+		
+		// DB 삽입 전 싱글쿼트 오류 방지용 replace
+		board.setTitle(board.getTitle().replaceAll("'","′"));
+		board.setText(board.getText().replaceAll("'","′"));
+
 		String sql = "insert into TB_BOARD values(SEQ_ID.NEXTVAL, ?, ?, ?, 0, 'N', to_char(sysdate, 'YYYYMMDDHH24MISS'), null)";
-		int result = template.update(sql, dto.getMemId(), dto.getTitle(), dto.getText());
+		int result = template.update(sql, board.getMemId(), board.getTitle(), board.getText());
 		System.out.println(result + " Record write 성공");
 	}
 	
 	// 게시물 수정 
 	@Override
-	public void update(BoardDTO dto) {
+	public void update(BoardDTO board) {
 		String sql = "update TB_BOARD set TITLE = ?, TEXT = ?, MOD_DTM = to_char(sysdate, 'YYYYMMDDHH24MISS') where BOARD_NO = ?";
-		int result = template.update(sql, dto.getTitle(), dto.getText(), dto.getBoardNo());
+		int result = template.update(sql, board.getTitle(), board.getText(), board.getBoardNo());
 		System.out.println(result + " Record Update 성공");
 	}
 

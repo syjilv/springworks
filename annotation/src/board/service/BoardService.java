@@ -7,7 +7,10 @@ import emp.dto.MyEmpDTO;
 
 public interface BoardService {
 
-	// 목록 조회
+	// 게시물 수 조회
+	public int count();
+
+		// 목록 조회
 	List<BoardDTO> list(int pageNo);
 
 	// 게시물 조회

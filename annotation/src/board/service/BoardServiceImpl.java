@@ -14,30 +14,36 @@ public class BoardServiceImpl implements BoardService {
 	@Qualifier("boarddao")
 	BoardDAO dao;
 	
+	// 게시물 수 조회
 	@Override
-	public List<BoardDTO> list(int pageNo) {
-		return dao.list(pageNo);
+	public int count() {
+		return dao.count();
+	}
+	
+	@Override
+	public List<BoardDTO> list(int page) {
+		return dao.list(page);
 	}
 
 	@Override
 	public BoardDTO view(String boardNo) {
-		return null;
+		return dao.view(boardNo);
 	}
 
 	@Override
-	public void write(BoardDTO dto) {
-		dao.write(dto);
+	public void write(BoardDTO board) {
+		dao.write(board);
 	}
 
 	@Override
-	public void update(BoardDTO dto) {
-		// TODO Auto-generated method stub
+	public void update(BoardDTO board) {
+		dao.update(board);
 		
 	}
 
 	@Override
 	public void delete(String boardNo) {
-		// TODO Auto-generated method stub
+		dao.delete(boardNo);
 		
 	}
 

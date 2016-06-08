@@ -26,8 +26,12 @@ public class BoardListController {
 	public ModelAndView runBoardList(int page) {
 		ModelAndView mav = new ModelAndView();
 
+		int count = service.count();
 		List<BoardDTO> list = service.list(page);
+		
+		mav.addObject("count", count);
 		mav.addObject("list", list);
+		mav.addObject("page", page);
 		mav.setViewName("board/list");
 
 		return mav;

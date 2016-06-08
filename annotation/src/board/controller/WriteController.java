@@ -21,10 +21,9 @@ public class WriteController {
 		return "board/write";
 	}
 	
-	//post방식으로 요청될 때 실행할 메소드, - 실제 db에 insert하기 위한 기능을 수행 
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public ModelAndView runWrite(HttpServletRequest request, BoardDTO board) {
 		service.write(board);
-		return new ModelAndView("redirect:index.do");
+		return new ModelAndView("redirect:board_list.do");
 	}
 }

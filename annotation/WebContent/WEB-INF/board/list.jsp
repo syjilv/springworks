@@ -20,6 +20,9 @@
 <body>
 	<%
 		List<BoardDTO> list = (List<BoardDTO>) request.getAttribute("list");
+		int count = (int) request.getAttribute("count");
+		int pageNo = (int) request.getAttribute("page");
+	
 		int size = list.size();
 	%>
 
@@ -46,10 +49,15 @@
 							<%
 								for (int i = 0; i < size; i++) {
 									BoardDTO board = list.get(i);
+									String newTitle = board.getTitle();
+									newTitle = newTitle.replaceAll("¡Ç","'");
+									newTitle = newTitle.replaceAll("\u0020","&nbsp;");
+									newTitle = newTitle.replaceAll(">","&gt;");
+									newTitle = newTitle.replaceAll("<","&lt;");
 							%>
 							<tr>
 								<td><%= board.getBoardNo() %></td>
-								<td><%= board.getTitle() %></td>
+								<td><a href="view.do?boardNo=<%= board.getBoardNo() %>"><%= newTitle %></a></td>
 								<td><%= board.getMemId() %></td>
 								<td><%= board.getRegDtm() %></td>
 								<td><%= board.getCount() %></td>
@@ -89,18 +97,47 @@
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<ul class="pagination pagination-lg">
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">Next</a></li>
+
+						<% 	// ÆäÀÌÂ¡ Ã³¸®
+							int startPage = 1;
+							if(pageNo % 5 == 0) {
+								startPage = pageNo - 4; 
+							} else if (pageNo > 5) {
+								startPage = pageNo - (pageNo % 5) + 1;
+							}
+						%>
+
+						<% if(pageNo != 1) { %>
+							<li class="disabled">
+						<% } else { %>
+							<li>
+						<% } %>
+							<a href="board_list.do?page=<%= pageNo - 1 %>">Prev</a></li>
+
+						<%
+						for(int j = 0; j < 5; j++) {
+								int listPage = startPage + j;
+								if(listPage == pageNo) {
+						%>	
+								<li class="active">
+							<% } else { %>
+								<li>
+							<% } %>
+								<a href="board_list.do?page=<%= listPage %>"><%= listPage %></a></li>
+						<% } %>
+						
+						<% if(pageNo != 1) { %>
+							<li class="disabled">
+						<% } else { %>
+							<li>
+						<% } %>
+							<a href="board_list.do?page=<%= pageNo + 1 %>">Next</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 
 </html>
