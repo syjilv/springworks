@@ -10,11 +10,12 @@ public class BoardDTO{
 	private String delFlg;
 	private String regDtm;
 	private String modDtm;
+	private String memNm;
 
 	public BoardDTO() {}
 
 	public BoardDTO(String boardNo, String memId, String title, String text,
-			int count, String delFlg, String regDtm, String modDtm) {
+			int count, String delFlg, String regDtm, String modDtm, String memNm) {
 		super();
 		this.boardNo = boardNo;
 		this.memId = memId;
@@ -24,6 +25,7 @@ public class BoardDTO{
 		this.delFlg = delFlg;
 		this.regDtm = regDtm;
 		this.modDtm = modDtm;
+		this.memNm = memNm;
 	}
 
 	public String getBoardNo() {
@@ -89,12 +91,20 @@ public class BoardDTO{
 	public void setModDtm(String modDtm) {
 		this.modDtm = modDtm;
 	}
+	
+	public String getMemNm() {
+		return memNm;
+	}
+
+	public void setMemNm(String memNm) {
+		this.memNm = memNm;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardDTO [boardNo=" + boardNo + ", memId=" + memId + ", title="
 				+ title + ", text=" + text + ", count=" + count + ", delFlg="
-				+ delFlg + ", regDtm=" + regDtm + ", modDtm=" + modDtm + "]";
+				+ delFlg + ", regDtm=" + regDtm + ", modDtm=" + modDtm + "memNm=" + memNm + "]";
 	}
 	
 }

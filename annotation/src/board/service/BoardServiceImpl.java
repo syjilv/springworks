@@ -36,15 +36,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void update(BoardDTO board) {
-		dao.update(board);
-		
+	public void modify(BoardDTO board) {
+		dao.modify(board);
 	}
 
 	@Override
 	public void delete(String boardNo) {
 		dao.delete(boardNo);
-		
+	}
+
+	@Override
+	public void viewCount(String boardNo) {
+		dao.viewCount(boardNo);
 	}
 
 }

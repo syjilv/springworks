@@ -18,6 +18,16 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+		function del(boardNo) {
+		    if (confirm("삭제하시겠습니까?") == true) {
+				location.href='del.do?boardNo=' + boardNo;
+		    } else {
+		        alert('취소되었습니다.');
+		    }
+		}
+		</script>
+	</script>
 	<%
 		BoardDTO board = (BoardDTO) request.getAttribute("board");
 		String newTitle = board.getTitle();
@@ -52,22 +62,30 @@
 								<div class="col-md-4">
 									<h4 class="text-muted text-right"><%= board.getMemId() %></h4>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<h4 class="text-muted text-right"><%= board.getBoardNo() %></h4>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<h4 class="text-muted text-right"><%= board.getRegDtm() %></h4>
 								</div>
-								<div class="col-md-4">
-									<h4 class="text-muted text-right">글쓴이</h4>
+								<div class="col-md-3">
+									<h4 class="text-muted text-right"><%= board.getModDtm() %></h4>
+								</div>
+								<div class="col-md-3">
+									<h4 class="text-muted text-right"><%= board.getCount() %></h4>
 								</div>
 							</div>
 						</div>
 						<div class="panel-body">
 							<p><%= newText %></p>
 						</div>
-						
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<a class="btn btn-lg btn-warning" href="modify.do?boardNo=<%= board.getBoardNo() %>"><i class="fa fa-fw fa-eraser"></i> 수정</a>
+					<a class="btn btn-lg btn-danger" href="javascript:del(<%= board.getBoardNo() %>);"><i class="fa fa-fw fa-trash"></i> 삭제</a>
 				</div>
 			</div>
 		</div>
@@ -75,3 +93,5 @@
 </body>
 
 </html>
+
+<jsp:include page="/board_list.do"></jsp:include>

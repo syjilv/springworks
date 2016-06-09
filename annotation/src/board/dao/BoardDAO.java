@@ -20,11 +20,14 @@ public interface BoardDAO {
 	void write(BoardDTO board);
 
 	// 게시물 수정
-	void update(BoardDTO board);
+	void modify(BoardDTO board);
 
 	// 게시물 삭제
 	void delete(String boardNo);
 
+	// 조회수
+	void viewCount(String boardNo);
+	
 	// 게시물 검색
 	// List<BoardDTO> search(String query);
 

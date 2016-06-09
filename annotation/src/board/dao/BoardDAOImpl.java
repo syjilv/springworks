@@ -26,9 +26,9 @@ public class BoardDAOImpl implements BoardDAO {
 	// 목록 조회
 	@Override
 	public List<BoardDTO> list(int page) {
-		String sql = "select u.BOARD_NO, u.MEM_ID, u.TITLE, u.TEXT, u.COUNT, u.DEL_FLG, u.REG_DTM, u.MOD_DTM from "
+		String sql = "select u.BOARD_NO, u.MEM_ID, u.TITLE, u.TEXT, u.COUNT, u.DEL_FLG, u.REG_DTM, u.MOD_DTM, u.MEM_NM from "
 				   + "(select ROWNUM n, t.* from "
-				   + "(select * from TB_BOARD where DEL_FLG = 'N' order by to_number(BOARD_NO) desc) t "
+				   + "(select b.*, m.MEM_NM as MEM_NM from TB_BOARD b, TB_MEM m where b.MEM_ID = m.MEM_ID and DEL_FLG = 'N' order by to_number(BOARD_NO) desc) t "
 				   + "where ROWNUM <= " + (page * 10) + ") u "
 				   + "where u.n >= " + (page * 10 - 9);
 		return template.query(sql, new BoardRowMapper());
@@ -37,8 +37,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시물 조회
 	@Override
 	public BoardDTO view(String boardNo) {
-		BoardDTO board = template.queryForObject("select * from TB_BOARD where BOARD_NO = ?", new Object[]{boardNo}, new BoardRowMapper());
-		
+		BoardDTO board = template.queryForObject("select b.*, m.MEM_NM from TB_BOARD b, TB_MEM m where b.MEM_ID = m.MEM_ID and BOARD_NO = ?", new Object[]{boardNo}, new BoardRowMapper());
 		return board;
 	}
 	
@@ -57,12 +56,18 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 게시물 수정 
 	@Override
-	public void update(BoardDTO board) {
+	public void modify(BoardDTO board) {
 		String sql = "update TB_BOARD set TITLE = ?, TEXT = ?, MOD_DTM = to_char(sysdate, 'YYYYMMDDHH24MISS') where BOARD_NO = ?";
 		int result = template.update(sql, board.getTitle(), board.getText(), board.getBoardNo());
 		System.out.println(result + " Record Update 성공");
 	}
-
+	
+	// 조회수
+	@Override
+	public void viewCount(String boardNo) {
+		template.update("update TB_BOARD set COUNT = (COUNT + 1) where BOARD_NO = ?", boardNo);
+	}
+	
 	// 게시물 삭제
 	@Override
 	public void delete(String boardNo) {
@@ -70,5 +75,5 @@ public class BoardDAOImpl implements BoardDAO {
 		int result = template.update(sql, boardNo);
 		System.out.println(result + ". " + boardNo + " Delete 성공");
 	}
-
+	
 }
