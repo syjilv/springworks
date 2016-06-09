@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시물 수 조회
 	@Override
 	public int count() {
-		return template.queryForObject("select count(*) from TB_BOARD", Integer.class);
+		return template.queryForObject("select count(*) from TB_BOARD where DEL_FLG = 'N'", Integer.class);
 	}
 	
 	// 목록 조회

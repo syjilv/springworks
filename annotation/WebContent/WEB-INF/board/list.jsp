@@ -19,23 +19,25 @@
 		
 		// 날짜 처리용
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat dff = new SimpleDateFormat("yyyyMMddHHmmss");
 		Calendar c = Calendar.getInstance();
 		String today = df.format(c.getTime());
+		Long todayFull = Long.parseLong(dff.format(c.getTime()));
 	%>
 
 	<div class="section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>게시판<small> Login status : ${sessionScope.mem.memId} <a href="logout.do">로그아웃</a></small></h1>
+					<h1>게시판<%= todayFull %><small> Login status : ${sessionScope.mem.memId} <a href="logout.do">로그아웃</a></small></h1>
 					<hr>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<table class="table table-hover table-bordered">
+					<table class="table table-hover">
 						<thead>
-							<tr>
+							<tr class="active">
 								<th class="text-center col-md-1">#</th>
 								<th class="text-center col-md-6">제목</th>
 								<th class="text-center col-md-2">작성자</th>
@@ -49,21 +51,35 @@
 								BoardDTO board = list.get(i);
 								// 제목 싱글쿼트, 태그, 공백 처리
 								String newTitle = board.getTitle();
+								// 제목 너무 길면 자르기
+								if(newTitle.length() > 50) {
+									newTitle = newTitle.substring(0, 50) + "...";
+								}
 								newTitle = newTitle.replaceAll("′","'");
 								newTitle = newTitle.replaceAll("\u0020","&nbsp;");
 								newTitle = newTitle.replaceAll(">","&gt;");
 								newTitle = newTitle.replaceAll("<","&lt;");
-								// 오늘 작성된 글이면 시간 표출, 아니면 날짜 표출
+								// 시간/날짜 표시를 위한 String 무더기
 								String showDate = "";
-								String writeDate = board.getRegDtm().substring(0, 8);
-								String writeTime = board.getRegDtm().substring(8);
-								String titleBadge = newTitle + "</a>";	// 글 제목에 New 뱃지
-								
+								String writeDtm = board.getRegDtm();
+								String writeDate = writeDtm.substring(0, 8);
+								String writeTime = writeDtm.substring(8);
+								// 오늘 작성된 글이면 시간 표출, 아니면 날짜 표출
 								if(today.equals(writeDate)) {
 									showDate = writeTime.substring(0, 2) + ":" + writeTime.substring(2, 4) + ":" + writeTime.substring(4);
-									titleBadge += "</a> <small><span class=\"label label-info\">New</span></small>";
 								} else {
 									showDate = writeDate.substring(0,4) + "-" + writeDate.substring(4,6) + "-" + writeDate.substring(6);
+								}
+								
+								// 작성한지 12시간 이내면 New 뱃지 달아주기
+								Long hourGap = todayFull - 120000;
+								String titleBadge = newTitle + "</a>";
+								// 12시 이전이면 하루 더 빼줌 - 연월 넘어가는건 그냥 새마음으로 새시작 하라고 처리 안함
+								if((hourGap - Long.parseLong(today + "000000")) < 0) {
+									hourGap = hourGap - 760000;
+								}
+								if(hourGap <= Long.parseLong(writeDtm)) {
+									titleBadge += "</a> <sup><span class=\"label label-warning\">New</span></sup>";
 								}
 						%>
 								<tr>
@@ -80,25 +96,27 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<a class="btn btn-default btn-lg" href="board_list.do?page=<%= pageNo %>"><i class="fa fa-fw -alt fa-th-list"></i> 목록</a>
+					<a class="btn btn-default btn-lg" href="board_list.do?page=<%= pageNo %>"><span class="fa fa-fw fa-th-list"></span> 목록</a>
 				</div>
 				<div class="col-md-6">
-					<form role="form">
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-									<select class=" form-control" style="width:20%">
-										<option>1</option>
-									</select>
-								<input type="search" class="form-control" style="width:80%" placeholder="언젠간 하겠지">
-								<span class="input-group-btn">
-									<a class="btn btn-success" type="submit"><i class="fa fa-fw fa-search"></i> 검색</a>
-								</span>
-							</div>
+					<form>
+						<div class="input-group input-group-lg">
+							<select class="form-control input-lg" style="width:30%">
+								<option>제목</option>
+								<option>제목+내용</option>
+								<option>작성자(이름)</option>
+								<option>작성자(ID)</option>
+							</select>
+
+							<input type="text" class="form-control" placeholder="검색도 할 수 있습니다" style="width:70%">
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-success" type="button"><span class="fa fa-fw fa-search"></span> 찾기</button>
+							</span>
 						</div>
 					</form>
 				</div>
 				<div class="col-md-3 text-right">
-					<a class="btn btn-lg btn-primary" href="write.do"><i class="-alt -list fa fa-fw fa-pencil"></i> 글쓰기</a>
+					<a class="btn btn-lg btn-primary" href="write.do"><span class="fa fa-fw fa-pencil"></span> 글쓰기</a>
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
