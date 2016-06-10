@@ -19,7 +19,7 @@ public class LoginController {
 	// ·Î±×¾Æ¿ô
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
-		session.setAttribute("mem", null);
+		session.invalidate();
 		return "redirect:index.do";
 	}
 
@@ -32,13 +32,12 @@ public class LoginController {
 	public ModelAndView runLogin(HttpSession session, String memId, String pwd) {
 		ModelAndView mav = new ModelAndView();
 		MemberDTO mem = service.login(memId, pwd);
-		System.out.println("controller : " + mem.toString());
 
 		if (mem != null) {
 			session.setAttribute("mem", mem);
 		}
 
-		mav.setViewName("redirect:index.do");
+		mav.setViewName("redirect:board_list.do");
 		return mav;
 	}
 }

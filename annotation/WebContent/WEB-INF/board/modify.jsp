@@ -13,19 +13,35 @@
 </head>
 
 <body>
+<script>
 <% 	BoardDTO board = (BoardDTO) request.getAttribute("board");
 	MemberDTO mem = (MemberDTO) session.getAttribute("mem");
-	
-	System.out.println(board.getMemId());
-	System.out.println(mem.getMemId());
 
 	// 임의 접근 차단 - 작성자와 로그인 아이디가 다를 경우 리스트로 리다이렉트
-	if(mem == null | !mem.getMemId().equals(board.getMemId())) { %>
-	<script>
+	if(mem != null && !mem.getMemId().equals(board.getMemId()) || mem == null) { %>
 		alert('잘못된 접근입니다.');
 		location.href='board_list.do';
-	</script>
 <%	} %>
+	// 전송 전 체크
+	function modCheck() {
+		if(modifyform.title.value == "") {
+			alert("제목을 입력해 주세요.");
+			modifyform.title.focus();
+
+		} else if(modifyform.title.value.length >= 20) {
+			alert("제목 사이즈는 주세요.");
+			modifyform.title.focus();
+			return false;
+		} else if(modifyform.text.value == "") {
+			alert("내용을 입력해 주세요.");
+			modifyform.text.focus();
+			return false;
+		}
+		else return true;
+	}
+
+
+</script>
 	<div class="section">
 		<div class="container">
 			<div class="row">
@@ -36,23 +52,14 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<form class="form-horizontal" role="form" name="modifyform" action="modify.do" method="POST">
-						<div class="form-group">
-							<div class="col-md-2 text-right">
-								<label for="memId" class="control-label">아이디</label>
-							</div>
-							<div class="col-md-10">
-								<input type="text" class="form-control input-lg" name="memId" id="memId" value="${sessionScope.mem.memId}" readonly>
-								<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
-							</div>
-						</div>
-
+					<form class="form-horizontal" role="form" name="modifyform" action="modify.do" method="POST" onsubmit="return modCheck()">
 						<div class="form-group">
 							<div class="col-md-2 text-right">
 								<label for="title" class="control-label">제목</label>
 							</div>
 							<div class="col-md-10">
 								<input type="text" class="form-control input-lg" name="title" id="title" value="<%= board.getTitle() %>">
+								<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -65,11 +72,11 @@
 						</div>
 						<div class="form-group">
 							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-lg btn-primary">
-									<i class="fa fa-fw fa-check"></i> 수정
+								<button type="submit" class="btn btn-lg btn-warning" onclick>
+									<span class="fa fa-fw fa-check"></span> 수정
 								</button>
-								<button type="submit" class="btn btn-danger btn-lg">
-									<i class="fa fa-fw fa-close"></i> 취소
+								<button type="button" class="btn btn-danger btn-lg" onclick=>
+									<span class="fa fa-fw fa-close"></span> 취소
 								</button>
 							</div>
 						</div>

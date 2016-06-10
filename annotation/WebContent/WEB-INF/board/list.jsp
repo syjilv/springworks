@@ -29,7 +29,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>게시판<%= todayFull %><small> Login status : ${sessionScope.mem.memId} <a href="logout.do">로그아웃</a></small></h1>
+					<h1>게시판<%= todayFull %><small> Login status : ${mem.memId} <a href="logout.do">로그아웃</a></small></h1>
 					<hr>
 				</div>
 			</div>

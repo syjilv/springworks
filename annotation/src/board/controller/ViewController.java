@@ -1,7 +1,5 @@
 package board.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,7 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public ModelAndView runView(HttpServletRequest request, String boardNo) {
+	public ModelAndView runView(String boardNo, String page) {
 		ModelAndView mav = new ModelAndView();
 		service.viewCount(boardNo);	// Á¶È¸¼ö
 		BoardDTO board = service.view(boardNo);

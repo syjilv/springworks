@@ -1,3 +1,4 @@
+<%@page import="member.dto.MemberDTO"%>
 <%@page import="board.dto.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" session="true" import="java.util.*"%>
 <html>
@@ -22,6 +23,8 @@
 	</script>
 	<%
 		BoardDTO board = (BoardDTO) request.getAttribute("board");
+		MemberDTO mem = (MemberDTO) session.getAttribute("mem");
+	
 		String newTitle = board.getTitle();
 		newTitle = newTitle.replaceAll("′","'");
 		newTitle = newTitle.replaceAll("\u0020","&nbsp;");
@@ -78,12 +81,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<a class="btn btn-lg btn-warning" href="modify.do?boardNo=<%= board.getBoardNo() %>"><span class="fa fa-fw fa-eraser"></span> 수정</a>
-					<a class="btn btn-lg btn-danger" href="javascript:del(<%= board.getBoardNo() %>);"><span class="fa fa-fw fa-trash"></span> 삭제</a>
+			// 글 작성자가 아닐 경우 수정 / 삭제 버튼이 보이지 않음
+			<% if(mem != null && mem.getMemId().equals(board.getMemId())) { %>
+				<div class="row">
+					<div class="col-md-12">
+						<a class="btn btn-lg btn-warning" href="modify.do?boardNo=<%= board.getBoardNo() %>"><span class="fa fa-fw fa-eraser"></span> 수정</a>
+						<a class="btn btn-lg btn-danger" href="javascript:del(<%= board.getBoardNo() %>);"><span class="fa fa-fw fa-trash"></span> 삭제</a>
+					</div>
 				</div>
-			</div>
+			<% } %>
 		</div>
 	</div>
 </body>
