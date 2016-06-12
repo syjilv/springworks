@@ -69,7 +69,7 @@
 								<label for="title" class="control-label">力格</label>
 							</div>
 							<div class="col-md-10">
-								<input type="text" class="form-control input-lg" name="title" id="title" maxlength="20" placeholder="力格">
+								<input type="text" class="form-control input-lg" name="title" id="title" placeholder="力格">
 								<input type="hidden" name="memId" id="memId" value="${mem.memId}">
 							</div>
 						</div>

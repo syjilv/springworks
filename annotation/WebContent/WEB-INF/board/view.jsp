@@ -34,6 +34,9 @@
 	<%
 		BoardDTO board = (BoardDTO) request.getAttribute("board");
 		int pageNo = (int) request.getAttribute("pageNo");
+		String mode = (String) request.getAttribute("mode");
+		String target = (String) request.getAttribute("target");
+		String keyword = (String) request.getAttribute("keyword");
 
 		MemberDTO mem = (MemberDTO) session.getAttribute("mem");
 	
@@ -110,5 +113,8 @@
 </body>
 
 </html>
-
-<jsp:include page="/board_list.do"></jsp:include>
+<% if(mode.equals("search")) { %>
+	<jsp:include page="/board_search.do"></jsp:include>
+<% } else { %>
+	<jsp:include page="/board_list.do"></jsp:include>
+<% } %>

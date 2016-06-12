@@ -23,14 +23,22 @@ public class ViewController {
 	public String viewPageNull(String boardNo) {
 		return "redirect:view.do?pageNo=1&boardNo=" + boardNo;
 	}
+
+	@RequestMapping(value="/view.do", params="!mode")
+	public String viewPageList(String boardNo) {
+		return "redirect:view.do?mode=list&pageNo=1&boardNo=" + boardNo;
+	}
 	
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public ModelAndView runView(int pageNo, String boardNo) {
+	public ModelAndView runView(int pageNo, String boardNo, String mode, String target, String keyword) {
 		ModelAndView mav = new ModelAndView();
 		service.viewCount(boardNo);	// Á¶È¸¼ö
 		BoardDTO board = service.view(boardNo);
 		mav.addObject("board", board);
 		mav.addObject("pageNo", pageNo);
+		mav.addObject("mode", mode);
+		mav.addObject("target", target);
+		mav.addObject("keyword", keyword);
 		mav.setViewName("board/view");
 		return mav;
 	}

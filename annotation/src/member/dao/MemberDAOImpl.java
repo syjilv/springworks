@@ -22,7 +22,6 @@ public class MemberDAOImpl implements MemberDAO {
 		} catch(EmptyResultDataAccessException e) {
 			
 		}
-		System.out.println(mem.toString());
 		return mem;
 	}
 }

@@ -21,8 +21,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardDTO> list(int page) {
-		return dao.list(page);
+	public List<BoardDTO> list(int pageNo) {
+		return dao.list(pageNo);
 	}
 
 	@Override
@@ -48,6 +48,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void viewCount(String boardNo) {
 		dao.viewCount(boardNo);
+	}
+
+	@Override
+	public int searchCount(String target, String keyword) {
+		return dao.searchCount(target, keyword);
+	}
+
+	@Override
+	public List<BoardDTO> search(String target, String keyword, int pageNo) {
+		return dao.search(target, keyword, pageNo);
 	}
 
 }
