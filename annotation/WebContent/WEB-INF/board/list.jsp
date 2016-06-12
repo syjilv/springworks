@@ -198,8 +198,10 @@ function searchCheck() {
 				<div class="col-md-3 text-right">
 					<a class="btn btn-lg btn-primary" href="write.do"><span class="fa fa-fw fa-pencil"></span> 글쓰기</a>
 				</div>
+				<!-- 페이징 -->
 				<div class="row">
 					<div class="col-md-12 text-center">
+					<% if (count != 0) { %>
 						<ul class="pagination pagination-lg">
 
 						<% 	// 페이징에서 보여지는 첫 페이지
@@ -246,6 +248,7 @@ function searchCheck() {
 							<li><a href="<%= modeRef %>pageNo=<%= pageNo + 1 %>">Next</a></li>
 						<% } %>
 						</ul>
+					<% } %>
 					</div>
 				</div>
 			</div>
