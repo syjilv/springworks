@@ -9,7 +9,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 				  value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@52.79.198.98:1521:xe"/>
+		<property name="url" value="jdbc:oracle:thin:@52.78.11.106:1521:xe"/>
 		<property name="username" value="scott"/>
 		<property name="password" value="tiger"/>
 	</bean>
