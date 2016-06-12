@@ -14,7 +14,8 @@
 	<%
 		List<BoardDTO> list = (List<BoardDTO>) request.getAttribute("list");
 		int count = (int) request.getAttribute("count");
-		int pageNo = (int) request.getAttribute("page");
+		int pageNo = (int) request.getAttribute("pageNo");
+		String boardNo = (String) request.getAttribute("boardNo");
 		int size = list.size();
 		
 		// 날짜 처리용
@@ -29,7 +30,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>게시판<%= todayFull %><small> Login status : ${mem.memId} <a href="logout.do">로그아웃</a></small></h1>
+					<h1>게시판 
+					<!-- 로그인 상태 표시 -->
+					<% if(session.getAttribute("mem") != null) { %>
+						<small> ${mem.memId} <a href="logout.do?ref=board_list">(로그아웃)</a></small>
+					<% } else { %>
+						<small> <a href="login.do?ref=board_list">로그인</a></small>
+					<% } %>
+					</h1>
 					<hr>
 				</div>
 			</div>
@@ -81,10 +89,18 @@
 								if(hourGap <= Long.parseLong(writeDtm)) {
 									titleBadge += "</a> <sup><span class=\"label label-warning\">New</span></sup>";
 								}
-						%>
-								<tr>
-									<td class="text-center"><%= board.getBoardNo() %></td>
-									<td class="text-left"><a href="view.do?boardNo=<%= board.getBoardNo() %>"><%= titleBadge %></td>
+								
+								// 게시물 보기 밑에 붙는 리스트일 경우 현재 보고 있는 게시물에 색칠 
+								String currentBoardNo = board.getBoardNo();
+								if(boardNo != null && boardNo.equals(board.getBoardNo())) {
+									currentBoardNo = "<span class=\"fa fa-fw fa-angle-double-right\"></span>";	
+								%>
+									<tr class="active">
+								<% } else { %>
+									<tr>
+								<% } %>
+									<td class="text-center"><%= currentBoardNo %></td>
+									<td class="text-left"><a href="view.do?pageNo=<%= pageNo %>&boardNo=<%= board.getBoardNo() %>"><%= titleBadge %></td>
 									<td class="text-center"><%= board.getMemNm() %><small>(<%= board.getMemId() %>)</small></td>
 									<td class="text-center"><%= showDate %></td>
 									<td class="text-center"><%= board.getCount() %></td>
@@ -96,7 +112,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<a class="btn btn-default btn-lg" href="board_list.do?page=<%= pageNo %>"><span class="fa fa-fw fa-th-list"></span> 목록</a>
+					<a class="btn btn-default btn-lg" href="board_list.do?pageNo=<%= pageNo %>"><span class="fa fa-fw fa-th-list"></span> 목록</a>
 				</div>
 				<div class="col-md-6">
 					<form>
@@ -141,7 +157,7 @@
 						if(pageNo == 1) { %>
 							<li class="disabled"><a href="#">Prev</a></li>
 						<% } else { %>
-								<li><a href="board_list.do?page=<%= pageNo - 1 %>">Prev</a></li>
+								<li><a href="board_list.do?pageNo=<%= pageNo - 1 %>">Prev</a></li>
 						<% }
 						// 총 페이지가 5페이지 미만일 경우 페이징 처리
 						int pageSize = 5;
@@ -157,13 +173,13 @@
 						<% } else { %>
 								<li>
 						<% } %>
-								<a href="board_list.do?page=<%= showPage %>"><%= showPage %></a></li>
+								<a href="board_list.do?pageNo=<%= showPage %>"><%= showPage %></a></li>
 						<% }
 						// Next 처리
 						if(pageNo == lastPage) { %>
 							<li class="disabled"><a href="#">Next</a></li>
 						<% } else { %>
-							<li><a href="board_list.do?page=<%= pageNo + 1 %>">Next</a></li>
+							<li><a href="board_list.do?pageNo=<%= pageNo + 1 %>">Next</a></li>
 						<% } %>
 						</ul>
 					</div>

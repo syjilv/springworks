@@ -17,21 +17,22 @@ public class BoardListController {
 	BoardService service;
 
 	// prameter가 없을 경우 무조건 page=1 로 넘김
-	@RequestMapping(value="/board_list.do", params="!page")
+	@RequestMapping(value="/board_list.do", params="!pageNo")
 	public ModelAndView list() {
-		return runBoardList(1);
+		return runBoardList(1,"");
 	}
 	
 	@RequestMapping(value="/board_list.do", method=RequestMethod.GET)
-	public ModelAndView runBoardList(int page) {
+	public ModelAndView runBoardList(int pageNo, String boardNo) {
 		ModelAndView mav = new ModelAndView();
 
 		int count = service.count();
-		List<BoardDTO> list = service.list(page);
-		
+		List<BoardDTO> list = service.list(pageNo);
+
 		mav.addObject("count", count);
 		mav.addObject("list", list);
-		mav.addObject("page", page);
+		mav.addObject("pageNo", pageNo);
+		mav.addObject("boardNo", boardNo);
 		mav.setViewName("board/list");
 
 		return mav;

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" import="java.util.*,emp.dto.*"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <html>
 
 <head>
@@ -9,13 +9,14 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
+<%	String ref = (String) request.getAttribute("ref"); %>
+
 	<div class="section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Heading</h1>
+					<h1>로그인</h1>
 					<hr>
 				</div>
 			</div>
@@ -36,12 +37,16 @@
 							</div>
 							<div class="col-sm-10">
 								<input type="password" class="form-control input-lg" id="pwd" name="pwd" placeholder="Password">
+								<input type="hidden" id="ref" name="ref" value="<%= ref %>">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-block btn-lg btn-success">
-									<i class="fa fa-fw fa-sign-in"></i> 로그인
+								<button type="submit" class="btn btn-lg btn-success">
+									<span class="fa fa-fw fa-sign-in"></span> 로그인
+								</button> 
+								<button type="button" class="btn btn-lg btn-danger" onclick="history.back(-1)">
+									<span class="fa fa-fw fa-close"></span> 취소
 								</button>
 							</div>
 						</div>
