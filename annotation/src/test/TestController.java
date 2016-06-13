@@ -10,7 +10,7 @@ public class TestController {
 	public ModelAndView test() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", "스프링에서 넘어온 데이터어7777777777777777777777777");
-		mav.setViewName("test/result");
+		mav.setViewName("test");
 		return mav;
 	}
 

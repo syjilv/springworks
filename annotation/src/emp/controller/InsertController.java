@@ -18,7 +18,7 @@ public class InsertController {
 	
 	@RequestMapping(value="/insert.do", method=RequestMethod.GET)
 	public String showPage() {
-		return "emp/memberInput";
+		return "input/form";
 	}
 	
 	@RequestMapping(value="/insert.do", method=RequestMethod.POST)

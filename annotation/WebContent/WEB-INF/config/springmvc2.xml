@@ -27,6 +27,8 @@
 		<property name="definitions">
 			<list>
 				<value>/WEB-INF/config/tiles-config.xml</value>
+				<value>/WEB-INF/config/search.xml</value>
+				
 			</list>
 		</property>
 	</bean>

@@ -19,6 +19,11 @@ public class SearchController {
 	@Autowired
 	MyEmpService service;
 	
+	@RequestMapping(value="/search.do", params="!search")
+	public String main() {
+		return "search/form";
+	}
+	
 	@RequestMapping(value="/search.do", method=RequestMethod.GET)
 	public ModelAndView runSearch(HttpServletRequest req,
 			HttpServletResponse res, String search)  {
@@ -27,7 +32,7 @@ public class SearchController {
 		System.out.println(search);
 		
 		mav.addObject("userlist", userlist);
-		mav.setViewName("emp/searchlist");
+		mav.setViewName("search/list");
 		return mav;
 	}
 }

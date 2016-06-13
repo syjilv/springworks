@@ -20,6 +20,10 @@
 		height:70%;
 		float:right;
 	}
+	#footer {
+		height:10%;
+		clear:both;
+	}
 </style>
 </head>
 <body>
@@ -31,6 +35,9 @@
 	</div>
 	<div id="content">
 		<tiles:insertAttribute name="content"></tiles:insertAttribute>
+	</div>
+	<div id="footer">
+		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 	</div>
 </body>
 </html>
