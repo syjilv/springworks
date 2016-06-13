@@ -19,6 +19,23 @@
 	<bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/"/>
 		<property name="suffix" value=".jsp"/>
+		<property name="order" value="2"/>
+	</bean>
+	<!-- Tiles를 이용하여 뷰를 만들 수 있도록 정보를 설정 -->
+	<!-- 1. 스프링이 Tiles 프레임워크 기반으로 뷰를 만들어낼 수 있도록 설정파일을 등록 -->
+	 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/config/tiles-config.xml</value>
+			</list>
+		</property>
 	</bean>
 	
+	<!-- 2. 일반폴더명과 .jsp 활장자를 결합해서 뷰를 만들어내던 뷰리졸버 말고
+		 tiles에 정의한 대로 뷰를 만들 수 있는 새로운 뷰리졸버 등록 -->
+		 
+	<bean id="tilesviewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+		<property name="order" value="1"></property>	 
+	</bean>
 </beans>
