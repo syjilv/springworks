@@ -19,4 +19,8 @@
 	<definition name="input/form" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/emp/memberInput.jsp"/>
 	</definition>
+		<definition name="list" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/emp/list.jsp"/>
+	</definition>
+	
 </tiles-definitions>

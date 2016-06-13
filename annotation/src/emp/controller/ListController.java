@@ -20,7 +20,7 @@ public class ListController {
 		ModelAndView mav = new ModelAndView();
 		List<MyEmpDTO> userlist = service.getMemberList();
 		mav.addObject("userlist", userlist);
-		mav.setViewName("emp/list");
+		mav.setViewName("list");
 		return mav;
 	}
 

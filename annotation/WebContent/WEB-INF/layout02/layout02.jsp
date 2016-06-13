@@ -8,20 +8,20 @@
 <title>Insert title here</title>
 <style type="text/css">
 	#header {
-		height:20%;
+		height:auto;
 	}
 	#left {
 		width:25%;
-		height:70%;
+		height:auto;
 		float:left;
 	}
 	#content {
 		width:75%;
-		height:70%;
+		height:auto;
 		float:right;
 	}
 	#footer {
-		height:10%;
+		height:auto;
 		clear:both;
 	}
 </style>
