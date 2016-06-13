@@ -24,23 +24,37 @@
 <%	} %>
 	// 전송 전 체크
 	function modCheck() {
-		if(modifyform.title.value == "") {
+		// 제목, 내용 사이즈 체크하는 정규식(아스키코드는 1, 유니코드는 3으로 계산)
+		var titleSize = modifyform.title.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+		var textSize = modifyform.text.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+
+		if(titleSize <= 0) {
 			alert("제목을 입력해 주세요.");
 			modifyform.title.focus();
-
-		} else if(modifyform.title.value.length >= 20) {
-			alert("제목 사이즈는 주세요.");
+			return false;
+		} else if(titleSize > 100) {
+			alert("제목은 한글 33자, 영문 100자 이내로 작성해주세요.");
 			modifyform.title.focus();
 			return false;
-		} else if(modifyform.text.value == "") {
+		} else if(textSize <= 0) {
 			alert("내용을 입력해 주세요.");
+			modifyform.text.focus();
+			return false;
+		} else if(textSize > 4000) {
+			alert("내용은 한글 1,333자, 영문 4000자 이내로 작성해주세요.");
 			modifyform.text.focus();
 			return false;
 		}
 		else return true;
 	}
-
-
+	
+	// 취소시 컨펌
+	function cancelCheck() {
+	    if (confirm("취소하시겠습니까?") == true) {
+			history.back(-1);
+	    }
+	}
+	
 </script>
 	<div class="section">
 		<div class="container">
@@ -72,10 +86,10 @@
 						</div>
 						<div class="form-group">
 							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-lg btn-warning" onclick>
+								<button type="submit" class="btn btn-lg btn-warning">
 									<span class="fa fa-fw fa-check"></span> 수정
 								</button>
-								<button type="button" class="btn btn-danger btn-lg" onclick=>
+								<button type="button" class="btn btn-danger btn-lg" onclick="javascript:cancelCheck()">
 									<span class="fa fa-fw fa-close"></span> 취소
 								</button>
 							</div>

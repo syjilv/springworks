@@ -25,12 +25,12 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 목록 조회
 	@Override
-	public List<BoardDTO> list(int page) {
+	public List<BoardDTO> list(int pageNo) {
 		String sql = "select u.BOARD_NO, u.MEM_ID, u.TITLE, u.TEXT, u.COUNT, u.DEL_FLG, u.REG_DTM, u.MOD_DTM, u.MEM_NM from "
 				   + "(select ROWNUM n, t.* from "
 				   + "(select b.*, m.MEM_NM as MEM_NM from TB_BOARD b, TB_MEM m where b.MEM_ID = m.MEM_ID and DEL_FLG = 'N' order by to_number(BOARD_NO) desc) t "
-				   + "where ROWNUM <= " + (page * 10) + ") u "
-				   + "where u.n >= " + (page * 10 - 9);
+				   + "where ROWNUM <= " + (pageNo * 10) + ") u "
+				   + "where u.n >= " + (pageNo * 10 - 9);
 		return template.query(sql, new BoardRowMapper());
 	}
 	
@@ -51,7 +51,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 		String sql = "insert into TB_BOARD values(SEQ_ID.NEXTVAL, ?, ?, ?, 0, 'N', to_char(sysdate, 'YYYYMMDDHH24MISS'), null)";
 		int result = template.update(sql, board.getMemId(), board.getTitle(), board.getText());
-		System.out.println(result + " Record write 성공");
+		//System.out.println(result + " Record write 성공");
 	}
 	
 	// 게시물 수정 
@@ -59,7 +59,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void modify(BoardDTO board) {
 		String sql = "update TB_BOARD set TITLE = ?, TEXT = ?, MOD_DTM = to_char(sysdate, 'YYYYMMDDHH24MISS') where BOARD_NO = ?";
 		int result = template.update(sql, board.getTitle(), board.getText(), board.getBoardNo());
-		System.out.println(result + " Record Update 성공");
+		//System.out.println(result + " Record Update 성공");
 	}
 	
 	// 조회수
@@ -73,7 +73,47 @@ public class BoardDAOImpl implements BoardDAO {
 	public void delete(String boardNo) {
 		String sql = "update TB_BOARD set DEL_FLG = 'Y' where BOARD_NO = ?";
 		int result = template.update(sql, boardNo);
-		System.out.println(result + ". " + boardNo + " Delete 성공");
+		//System.out.println(result + ". " + boardNo + " Delete 성공");
 	}
+	
+	
+	@Override
+	public int searchCount(String target, String keyword) {
+		String sql = "select count(*) from TB_BOARD b, TB_MEM m where b.MEM_ID = m.MEM_ID and b.DEL_FLG = 'N' and ";
+		
+		if(target.equals("title")) {
+			sql += "b.TITLE like '%" + keyword + "%'";
+		} else if(target.equals("all")) {
+			sql += "(b.TITLE like '%" + keyword + "%' or b.TEXT like '%" + keyword + "%')";
+		} else if(target.equals("memNm")) {
+			sql += "m.MEM_NM like '%" + keyword + "%'";
+		} else if(target.equals("memId")) {
+			sql += "m.MEM_ID like '%" + keyword + "%'";
+		}
+
+		return template.queryForObject(sql, Integer.class);
+	}
+	
+	// 검색
+	@Override
+	public List<BoardDTO> search(String target, String keyword, int pageNo) {
+		String sql = "select u.BOARD_NO, u.MEM_ID, u.TITLE, u.TEXT, u.COUNT, u.DEL_FLG, u.REG_DTM, u.MOD_DTM, u.MEM_NM from "
+				   + "(select ROWNUM n, t.* from "
+				   + "(select b.*, m.MEM_NM as MEM_NM from TB_BOARD b, TB_MEM m where b.MEM_ID = m.MEM_ID and DEL_FLG = 'N' and ";
+		
+		if(target.equals("title")) {
+			sql += "b.TITLE like '%" + keyword + "%' order by to_number(BOARD_NO) desc) t ";
+		} else if(target.equals("all")) {
+			sql += "(b.TITLE like '%" + keyword + "%' or b.TEXT like '%" + keyword + "%') order by to_number(BOARD_NO) desc) t ";
+		} else if(target.equals("memNm")) {
+			sql += "m.MEM_NM like '%" + keyword + "%' order by to_number(BOARD_NO) desc) t ";
+		} else if(target.equals("memId")) {
+			sql += "m.MEM_ID like '%" + keyword + "%' order by to_number(BOARD_NO) desc) t ";
+		}
+		sql += "where ROWNUM <= " + (pageNo * 10) + ") u where u.n >= " + (pageNo * 10 - 9);
+
+		return template.query(sql, new BoardRowMapper());
+	}
+	
 	
 }

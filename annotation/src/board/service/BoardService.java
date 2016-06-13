@@ -28,7 +28,10 @@ public interface BoardService {
 	// 조회수
 	void viewCount(String boardNo);
 
+	// 검색 게시물 카운트
+	int searchCount(String target, String keyword);
+
 	// 게시물 검색
-	// List<BoardDTO> search(String query);
+	List<BoardDTO> search(String target, String keyword, int pageNo);
 
 }

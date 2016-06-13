@@ -32,6 +32,6 @@ public class ModifyController {
 	@RequestMapping(value="/modify.do", method=RequestMethod.POST)
 	public ModelAndView runModify(BoardDTO board) {
 		service.modify(board);
-		return new ModelAndView("redirect:board_list.do");
+		return new ModelAndView("redirect:view.do?boardNo=" + board.getBoardNo());
 	}
 }

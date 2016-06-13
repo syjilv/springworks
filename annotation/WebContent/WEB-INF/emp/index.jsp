@@ -17,10 +17,9 @@
 		<% if(mem != null) { %>
 			<h3>아이디 : <%= mem.getMemId() %></h3>
 			<h3>이  름 : <%= mem.getMemNm() %></h3>
-			<h3><a href="logout.do">로그아웃</a></h3>
-			<h3><a href="write.do">글쓰기</a></h3>
+			<h3><a href="logout.do?ref=index">로그아웃</a></h3>
 		<% } else { %>
-			<h3><a href="login.do">로그인</a></h3>
+			<h3><a href="login.do?ref=index">로그인</a></h3>
 		<% } %>
 		<hr/>
 		<h3><a href="test.do">스프링 웹 MVC연동하기</a></h3>
@@ -31,8 +30,6 @@
 	</div>
 </body>
 </html>
-
-
 
 
 

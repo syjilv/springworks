@@ -18,26 +18,25 @@ public class LoginController {
 
 	// ·Î±×¾Æ¿ô
 	@RequestMapping("logout.do")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, String ref) {
 		session.invalidate();
-		return "redirect:index.do";
+		return "redirect:" + ref + ".do";
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String login() {
-		return "member/login";
+	public ModelAndView loginForm(String ref) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ref", ref);
+		mav.setViewName("member/login");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public ModelAndView runLogin(HttpSession session, String memId, String pwd) {
-		ModelAndView mav = new ModelAndView();
+	public String runLogin(HttpSession session, String memId, String pwd, String ref) {
 		MemberDTO mem = service.login(memId, pwd);
-
 		if (mem != null) {
 			session.setAttribute("mem", mem);
 		}
-
-		mav.setViewName("redirect:board_list.do");
-		return mav;
+		return "redirect:" + ref + ".do";
 	}
 }

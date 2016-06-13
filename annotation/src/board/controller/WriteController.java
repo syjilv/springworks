@@ -19,9 +19,10 @@ public class WriteController {
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String write(HttpSession session) {
-		if (session.getAttribute("mem") == null) {
-			return "redirect:login.do";
-		}
+		// 로그인 세션이 없을 경우 로그인 폼으로 이동
+//		if (session.getAttribute("mem") == null) {
+//			return "redirect:login.do?ref=write";
+//		}
 		return "board/write";
 	}
 	

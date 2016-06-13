@@ -11,7 +11,7 @@ public interface BoardDAO {
 	int count();
 	
 	// 목록 조회
-	List<BoardDTO> list(int page);
+	List<BoardDTO> list(int pageNo);
 
 	// 게시물 조회
 	BoardDTO view(String boardNo);
@@ -27,8 +27,11 @@ public interface BoardDAO {
 
 	// 조회수
 	void viewCount(String boardNo);
-	
+
+	// 검색 게시물 카운트
+	int searchCount(String target, String keyword);
+
 	// 게시물 검색
-	// List<BoardDTO> search(String query);
+	List<BoardDTO> search(String target, String keyword, int pageNo);
 
 }

@@ -12,28 +12,30 @@ import board.dto.BoardDTO;
 import board.service.BoardService;
 
 @Controller
-public class BoardListController {
+public class BoardSearchController {
 	@Autowired
 	BoardService service;
 
-	// prameter가 없을 경우 무조건 page=1 로 넘김
-	@RequestMapping(value="/board_list.do", params="!pageNo")
-	public ModelAndView list() {
-		return runBoardList(1,"");
+	// parameter가 없을 경우 보드리스트로 넘기기
+	@RequestMapping(value="/board_search.do", params="!keyword")
+	public String seacrh() {
+		return "redirect:board_list.do";
 	}
 	
-	@RequestMapping(value="/board_list.do", method=RequestMethod.GET)
-	public ModelAndView runBoardList(int pageNo, String boardNo) {
+	@RequestMapping(value="/board_search.do", method=RequestMethod.GET)
+	public ModelAndView runBoardSearch(String target, String keyword, int pageNo, String boardNo) {
 		ModelAndView mav = new ModelAndView();
 
-		int count = service.count();
-		List<BoardDTO> list = service.list(pageNo);
+		int count = service.searchCount(target, keyword);
+		List<BoardDTO> list = service.search(target, keyword, pageNo);
 
 		mav.addObject("count", count);
 		mav.addObject("list", list);
+		mav.addObject("target", target);
+		mav.addObject("keyword", keyword);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("boardNo", boardNo);
-		mav.addObject("mode","list");
+		mav.addObject("mode", "search");
 		mav.setViewName("board/list");
 
 		return mav;

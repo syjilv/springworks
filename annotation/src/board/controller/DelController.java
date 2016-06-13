@@ -18,16 +18,9 @@ public class DelController {
 		return "redirect:board_list.do";
 	}
 	
-	@RequestMapping(value="/del.do", method=RequestMethod.GET)
+	@RequestMapping(value="/del.do", method=RequestMethod.POST)
 	public String runDel(String boardNo) {
 		service.delete(boardNo);
 		return "redirect:board_list.do";
 	}
-	
-//	@RequestMapping(value="/del.do", method=RequestMethod.POST)
-//	public ModelAndView runModify(BoardDTO board) {
-//		System.out.println("컨트롤러 : " + board.toString());
-//		service.modify(board);
-//		return new ModelAndView("redirect:board_list.do");
-//	}
 }
